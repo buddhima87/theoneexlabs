@@ -663,6 +663,8 @@
             <a href="#services">Services</a>
             <a href="#pricing">Pricing</a>
             <a href="#contact">Contact</a>
+            <a href="Privacy_Policy_TheoneexLabs-v2.pdf" class="legal-link" data-pdf-trigger="privacy">Privacy Policy</a>
+            <a href="Terms_and_Conditions_TheoneexLabs-v2.pdf" class="legal-link" data-pdf-trigger="terms">Terms and Conditions</a>
           </div>
         </div>
 
@@ -684,6 +686,23 @@
       </div>
     </div>
   </footer>
+
+  <!-- Legal PDF Lightbox -->
+  <div class="pdf-lightbox" id="pdfLightbox" aria-hidden="true">
+    <div class="pdf-lightbox-backdrop" data-pdf-close></div>
+    <div class="pdf-lightbox-dialog" role="dialog" aria-modal="true" aria-labelledby="pdfDialogTitle">
+      <div class="pdf-lightbox-header">
+        <h3 id="pdfDialogTitle">Document Preview</h3>
+        <button type="button" class="pdf-close" id="pdfClose" aria-label="Close document preview">&times;</button>
+      </div>
+      <div class="pdf-lightbox-body">
+        <iframe id="pdfFrame" title="Document preview" loading="lazy"></iframe>
+      </div>
+      <div class="pdf-lightbox-footer">
+        <a id="pdfOpenNewTab" href="#" target="_blank" rel="noopener noreferrer">Open in new tab</a>
+      </div>
+    </div>
+  </div>
 
   <!-- Toast Notification -->
   <div class="toast" id="toast"></div>

@@ -195,4 +195,59 @@ document.addEventListener('DOMContentLoaded', () => {
       line.style.transform = 'translateX(0)';
     }, 100);
   });
+
+  // --- Footer legal PDF lightbox ---
+  const pdfLightbox = document.getElementById('pdfLightbox');
+  const pdfFrame = document.getElementById('pdfFrame');
+  const pdfCloseBtn = document.getElementById('pdfClose');
+  const pdfOpenNewTab = document.getElementById('pdfOpenNewTab');
+  const pdfDialogTitle = document.getElementById('pdfDialogTitle');
+  const pdfTriggers = document.querySelectorAll('[data-pdf-trigger]');
+  const pdfCloseTargets = document.querySelectorAll('[data-pdf-close]');
+
+  function closePdfLightbox() {
+    if (!pdfLightbox || !pdfFrame) return;
+    pdfLightbox.classList.remove('active');
+    pdfLightbox.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+
+    // Reset embedded document shortly after close animation.
+    setTimeout(() => {
+      pdfFrame.setAttribute('src', 'about:blank');
+    }, 250);
+  }
+
+  function openPdfLightbox(title, pdfPath) {
+    if (!pdfLightbox || !pdfFrame || !pdfOpenNewTab || !pdfDialogTitle) return;
+    pdfDialogTitle.textContent = title;
+    pdfFrame.setAttribute('src', `${pdfPath}#view=FitH`);
+    pdfOpenNewTab.setAttribute('href', pdfPath);
+    pdfLightbox.classList.add('active');
+    pdfLightbox.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+  }
+
+  pdfTriggers.forEach(link => {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      const pdfPath = link.getAttribute('href');
+      const linkType = link.getAttribute('data-pdf-trigger');
+      const title = linkType === 'privacy' ? 'Privacy Policy' : 'Terms and Conditions';
+      openPdfLightbox(title, pdfPath);
+    });
+  });
+
+  pdfCloseTargets.forEach(target => {
+    target.addEventListener('click', closePdfLightbox);
+  });
+
+  if (pdfCloseBtn) {
+    pdfCloseBtn.addEventListener('click', closePdfLightbox);
+  }
+
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && pdfLightbox && pdfLightbox.classList.contains('active')) {
+      closePdfLightbox();
+    }
+  });
 });
