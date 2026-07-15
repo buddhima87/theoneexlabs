@@ -211,6 +211,10 @@ document.addEventListener('DOMContentLoaded', () => {
     pdfLightbox.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('modal-open');
 
+    setTimeout(() => {
+      pdfLightbox.setAttribute('hidden', '');
+    }, 250);
+
     // Reset embedded document shortly after close animation.
     setTimeout(() => {
       pdfFrame.setAttribute('src', 'about:blank');
@@ -219,6 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function openPdfLightbox(title, pdfPath) {
     if (!pdfLightbox || !pdfFrame || !pdfOpenNewTab || !pdfDialogTitle) return;
+    pdfLightbox.removeAttribute('hidden');
     pdfDialogTitle.textContent = title;
     pdfFrame.setAttribute('src', `${pdfPath}#view=FitH`);
     pdfOpenNewTab.setAttribute('href', pdfPath);
